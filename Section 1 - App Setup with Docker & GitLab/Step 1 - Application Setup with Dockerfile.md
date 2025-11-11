@@ -8,7 +8,7 @@ To Install `Nest.js`, navigate to your terminal and run the command below:
 npm i -g @nestjs/cli
 ```
 
-![[Pasted image 20251111115035.png]]
+![](Pasted%20image%2020251111125521.png)
 ### Create Your First Nest.js Application
 To create a `Nest.js` application, navigate to your terminal and run the command below:
 ```shell
