@@ -1,3 +1,5 @@
+# Containerized Application with Docker
+
 — In this guide, we are going to containerize our application. To get started with Docker, ensure that `Docker` is installed on your machine and that you have a `Dockerfile` located at the root level of your repository.
 
 >[!Note]
