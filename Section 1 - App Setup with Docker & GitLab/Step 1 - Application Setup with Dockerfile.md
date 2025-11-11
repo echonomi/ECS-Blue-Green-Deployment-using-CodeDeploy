@@ -14,8 +14,7 @@ To create a `Nest.js` application, navigate to your terminal and run the command
 ```shell
 nest new <project-name>
 ```
-
-![[./attachments/Pasted image 20251111115125.png]]
+![](./attachments/Pasted%20image%2020251111130248.png)
 
 ### RUN Nest.js Application
 To run the `Nest.js` application kindly run the command below
@@ -24,9 +23,9 @@ To run the `Nest.js` application kindly run the command below
 npm run start
 ```
 
-![[./attachments/Pasted image 20251111115615.png]]
+![](./attachments/Pasted%20image%2020251111130308.png)
 
 Next, open your browser and navigate to `http://localhost:3000`
-![[./attachments/Pasted image 20251111115634.png]]
+![](./attachments/Pasted%20image%2020251111130328.png)
 
 Thats it you have launched your `Nest.js` application 🎉. 

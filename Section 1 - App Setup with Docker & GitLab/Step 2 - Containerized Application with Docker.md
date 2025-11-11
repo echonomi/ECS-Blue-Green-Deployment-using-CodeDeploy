@@ -39,7 +39,7 @@ CMD ["node", "dist/main.js"]
 
 Make sure the `Dockerfile` is placed in the root level of your repository
 
-![[./attachments/Pasted image 20251111115651.png]]
+![](./attachments/Pasted%20image%2020251111130350.png)
 ### Create Docker Image
 After you setup the `Dockerfile`, use the command below to create you `Docker` image
 
@@ -52,7 +52,7 @@ docker build -t <image-name> .
 >`docker buildx build --platform linux/amd64,linux/arm64 -t [image-name] .`
 >This ensures your image is built for both architectures, preventing compatibility issues when running the container later on AWS.
 
-![[./attachments/Pasted image 20251111115704.png]]
+![](./attachments/Pasted%20image%2020251111130410.png)
 
 You can check your docker images by running the command below:
 
@@ -69,13 +69,13 @@ To verify that the Docker image works correctly, you can run it locally using th
 docker run -p 3000:3000 <image-name>
 ```
 
-![[./attachments/Pasted image 20251111115732.png]]
+![](./attachments/Pasted%20image%2020251111130445.png)
 
 This will start your application inside a container and expose it on port 3000.
 Open your browser and navigate to http://localhost:3000 to confirm everything is working as expected.
 
 You should observe the same behavior from your application as before containerization.
 
-![[./attachments/Pasted image 20251111115743.png]]
+![](./attachments/Pasted%20image%2020251111130502.png)
 
 Thats it you have containerized your application 🎉
