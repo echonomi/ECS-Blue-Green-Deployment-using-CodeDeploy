@@ -126,7 +126,7 @@ aws ecs create-service \
   --task-definition <task-definition-family> \
   --desired-count 1 \
   --launch-type FARGATE \
-  --deployment-controller type=CODE_DEPLOY \
+  --deployment-controller type=ECS \
   --network-configuration "awsvpcConfiguration={subnets=[<subnet-id>,<subnet-id>],securityGroups=<security-group>,assignPublicIp=DISABLED}" \
   --load-balancers "targetGroupArn=<target-group-arn>,containerName=<app-container>,containerPort=<app-port>"
 ```
@@ -142,7 +142,7 @@ You could also test, the DNS provided by your load balancer
 
 ![](./attachments/Pasted%20image%2020251111153916.png)
 
-In you production environment,  you can use the same command, but ensure that you have the following resources prepared:
+In you production environment, ensure that you have the following resources prepared and run the command below:
 - Cluster (same cluster with your staging)
 - Task Definition 
 - Subnet ID
@@ -150,7 +150,25 @@ In you production environment,  you can use the same command, but ensure that yo
 - Load Balancer (production)
 - Two target group for green and blue
 
+``` shell
+aws ecs create-service \
+  --cluster <cluster-name> \
+  --service-name <service-name> \
+  --task-definition <task-definition-family> \
+  --desired-count 1 \
+  --launch-type FARGATE \
+  --deployment-controller type=CODE_DEPLOY \
+  --network-configuration "awsvpcConfiguration={subnets=[<subnet-id>,<subnet-id>],securityGroups=<security-group>,assignPublicIp=DISABLED}" \
+  --load-balancers "targetGroupArn=<target-group-arn>,containerName=<app-container>,containerPort=<app-port>"
+```
+
+
+On you load balancer, just attach the blue target group because **CodeDeploy** will automatically attach your green target group and shift its traffic.
+
 >[!Note]
 >You might be encountering IAM Role or permission problem base on your application needs and you task definition requirements (Like creating log group)
 
-thats it you have deploy your application in ECS 🎉.
+Once you have created your production environment you should have two active services in your cluster.
+
+![](./attachments/Pasted%20image%2020251111170213.png)
+Thats it you have deploy your application in ECS 🎉.

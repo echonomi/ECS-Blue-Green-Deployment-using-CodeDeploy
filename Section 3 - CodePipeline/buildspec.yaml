@@ -1,0 +1,41 @@
+
+version: 0.2
+env:
+  variables:
+    APP_NAME: <app-name> # must change
+    CONTAINER_NAME: <app-container-name> # must change
+
+phases:
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+      - REGION=${AWS_DEFAULT_REGION}
+      - ECR_URI="$ACCOUNT_ID.dkr.ecr.$REGION.amazonaws.com"
+      - IMAGE_REPO="$ECR_URI/$APP_NAME"
+      - IMAGE_TAG=${CODEBUILD_RESOLVED_SOURCE_VERSION:0:8}
+      - aws ecr get-login-password --region $REGION | docker login --username AWS --password-stdin "$ECR_URI"
+
+  build:
+    commands:
+      - echo Building Docker image...
+      - docker build -t "$IMAGE_REPO:$IMAGE_TAG" -t "$IMAGE_REPO:latest" .
+
+  post_build:
+    commands:
+      - echo Pushing images to ECR...
+      - docker push "$IMAGE_REPO:$IMAGE_TAG"
+      - docker push "$IMAGE_REPO:latest"
+
+      - echo Writing imagedefinitions.json...
+      - printf '[{"name":"%s","imageUri":"%s"}]\n' "$CONTAINER_NAME" "$IMAGE_REPO:$IMAGE_TAG" > imagedefinitions.json
+
+      - echo Writing imagedefinitions.json...
+      - printf '{"ImageURI":"%s"}\n' "$IMAGE_REPO:$IMAGE_TAG" > imageDetail.json
+
+artifacts:
+  files:
+    - imagedefinitions.json
+    - <task-definition-name-from-your-repository>.json # must change
+    - appspec.yaml
+    - imageDetail.json

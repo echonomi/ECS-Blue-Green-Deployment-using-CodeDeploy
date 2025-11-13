@@ -1,0 +1,9 @@
+version: 0.0
+Resources:
+  - TargetService:
+      Type: AWS::ECS::Service
+      Properties:
+        TaskDefinition: <TASK_DEFINITION> # leave this as is 
+        LoadBalancerInfo:
+          ContainerName: <app-container-name> # must change
+          ContainerPort: <app-port> # must change 
